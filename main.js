@@ -10,6 +10,8 @@ var con = mysql.createConnection({
   database : 'russian'
 });
 
+var PORT = process.env.PORT || 2223;
+
 // var con = mysql.createConnection({
 //   host     : 'localhost',
 //   user     : 'root',
@@ -281,4 +283,4 @@ http.createServer(function(req, res) {
     res.end('404 Error: Not found.');
   }
 
-}).listen(2223); // if you're planning to change the host, make sure to make extra moderations within the code above.
+}).listen(PORT); // if you're planning to change the host, make sure to make extra moderations within the code above.
