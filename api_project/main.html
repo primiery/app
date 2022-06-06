@@ -1,0 +1,160 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>내 시간표 관리하기</title>
+        <meta charset="utf-8">
+        <style>
+            /* 시간표 테이블 style */
+            #timetable {
+                border-collapse: collapse;
+            }
+            #timetable th, td {
+                border: 1px solid black;
+            }
+            #timetable td {
+                padding: 22pt;
+            }
+
+            /* #cs-panel, #others-panel styles */
+            #cs-panel {
+                background-color: silver;
+                display: none;
+                position: fixed;
+                width: 100%;
+                height: 17em;
+                bottom: 0;
+                left: 0;
+                overflow: scroll;
+            }
+            #others-panel {
+                background-color: silver;
+                display: none;
+                position: fixed;
+                width: 100%;
+                height: 17em;
+                bottom: 0;
+                left: 0;
+                overflow: scroll;
+            }
+        </style>
+    </head>
+    <body>
+        <!-- -------------여기서부터는 모든 페이지가 공통으로 가지는 부분------------- -->
+
+        <!-- 상단 헤더 바 -->
+        <header>
+            <!-- 세 줄 메뉴 아이콘 -->
+            <img src="#" alt="nav_icon">
+        </header>
+
+        <!-- 내비게이션 사이드 섹션 -->
+        <nav>
+            <ul>
+                <a href="#"><li>구글 캘린더 연동</li></a>
+                <a href="#"><li>카카오톡으로 공유</li></a>
+            </ul>
+        </nav>
+
+        <!-- -------------여기서부터는 페이지마다 달라지는 부분------------- -->
+
+        <!-- 페이지 설명 -->
+        <h1>내 시간표</h1>
+
+        <!-- 페이지 내용 -->
+        <!-- 시간표 table -->
+        <table id="timetable">
+            <thead>
+                <tr>
+                    <th>시간</th>
+                    <th>월</th>
+                    <th>화</th>
+                    <th>수</th>
+                    <th>목</th>
+                    <th>금</th>
+                    <th>토</th>
+                    <th>일</th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+
+        <!-- 하단 버튼 2개 -->
+        <button id="cs-panel-button">컴퓨터과학과 전공 과목 추가</button>
+        <button id="others-panel-button">기타 과목 추가</button>
+
+        <!-- 컴퓨터과학과 전공 과목 추가하는 panel -->
+        <div id="cs-panel">
+            <form method="post" action="#">
+                <p><label>교수/과목명
+                    <select name="csClass">
+                        <option value="이경호/인터넷프로그래밍">이경호/인터넷프로그래밍</option>
+                        <option value="이수경/이산구조">이수경/이산구조</option>
+                        <option value="황성재/자료구조">황성재/자료구조</option>
+                    </select>
+                </label></p>
+                <p><label>시간대
+                    <select name="csTimeslot">
+                        <option value="월2, 수23">월2, 수23</option>
+                    </select>
+                </label></p>
+                <p><label>마일리지
+                    <input name="csMileage" type="number" min="0" step="1">
+                </label></p>
+                <input type="submit" value="이 과목 추가하기">
+            </form>
+            <div id="#calc-result">
+                총 성공 확률 <span id="#calc-result-number">78</span>%
+            </div>
+        </div>
+
+        <!-- 기타 과목 추가하는 panel -->
+        <div id="others-panel">
+            <form method="post" action="#">
+                <p><label>교수
+                    <input name="othersProfessor" type="text">
+                </label></p>
+                <p><label>과목명
+                    <input name="othersClassName" type="text">
+                </label></p>
+                <p><label>시간
+                    <input name="othersTimeslot" type="number">
+                </label></p>
+                <input type="submit" value="이 과목 추가하기">
+            </form>
+        </div>
+    </body>
+    <script>
+        document.querySelector("#cs-panel-button").onclick = function(){
+            document.querySelector("#cs-panel").style.display = "block";
+        }
+        document.querySelector("#cs-panel input[type='submit']").onclick = function(){
+            document.querySelector("#cs-panel").style.display = "none";
+        }
+
+        document.querySelector("#others-panel-button").onclick = function(){
+            document.querySelector("#others-panel").style.display = "block";
+        }
+        document.querySelector("#others-panel input[type='submit']").onclick = function(){
+            document.querySelector("#others-panel").style.display = "none";
+        }
+
+        const hrsInDay = 24;
+        var result = "";
+        for(let i = 0; i < hrsInDay; i++) {
+            let x = `
+            <tr>
+                <th>${i}-${i + 1}</th>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+                <td></td>
+            </tr>`;
+            result += x;
+        }
+        document.querySelector("#timetable tbody").innerHTML = result;
+    </script>
+</html>

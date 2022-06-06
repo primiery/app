@@ -1,0 +1,99 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>내 정보 입력하기</title>
+        <meta charset="utf-8">
+    </head>
+    <body>
+        <!-- -------------여기서부터는 모든 페이지가 공통으로 가지는 부분------------- -->
+
+        <!-- 상단 헤더 바 -->
+        <header>
+            <!-- 세 줄 메뉴 아이콘 -->
+            <img src="#" alt="nav_icon">
+        </header>
+
+        <!-- 내비게이션 사이드 섹션 -->
+        <nav>
+            <ul>
+                <a href="#"><li>구글 캘린더 연동</li></a>
+                <a href="#"><li>카카오톡으로 공유</li></a>
+            </ul>
+        </nav>
+
+        <!-- -------------여기서부터는 페이지마다 달라지는 부분------------- -->
+
+        <!-- 페이지 설명 -->
+        <h1>내 정보</h1>
+        <h2>입력된 정보를 바탕으로 확률 예측이 계산되니 정확하게 기입해주시기 바랍니다.</h2>
+
+        <!-- 페이지 내용 -->
+        <!-- 개인정보 입력받는 form -->
+        <form method="post" action="#">
+            <p><label>제1전공
+                <select name="myMajor">
+                    <option value="문과대학">문과대학</option>
+                    <option value="상경대학">상경대학</option>
+                    <option value="경영대학">경영대학</option>
+                    <option value="이과대학">이과대학</option>
+                    <option value="공과대학">공과대학</option>
+                    <option value="생명시스템대학">생명시스템대학</option>
+                    <option value="인공지능융합대학">인공지능융합대학</option>
+                    <option value="신과대학">신과대학</option>
+                    <option value="사회과학대학">사회과학대학</option>
+                    <option value="음악대학">음악대학</option>
+                    <option value="교육과학대학">교육과학대학</option>
+                    <option value="생활과학대학">생활과학대학</option>
+                    <option value="언더우드국제대학">언더우드국제대학</option>
+                    <option value="약학대학">약학대학</option>
+                    <option value="간호대학">간호대학</option>
+                    <option value="글로벌인재대학">글로벌인재대학</option>
+                </select>
+            </label></p>
+            <p><label>지금까지 이수한 학기 수
+                <input name="mySemesters" type="number" min="1" max="100" step="1">
+            </label></p>
+            <p><label>졸업신청 여부
+                <input name="myAppliedForGrad" value="true" type="checkbox">
+            </label></p>
+            <div id="credits-per-semester"></div>
+
+            <input type="submit" value="완료 >">
+        </form>
+        <div id="demo"></div>
+    </body>
+    <script>
+        document.querySelector("input[name='mySemesters']").onchange = function(){
+            const numOfSemester = parseInt(this.value);
+            const targetElem = document.querySelector("#credits-per-semester");
+            generateInputs(numOfSemester, targetElem);
+        }
+        
+        function generateInputs(numOfSemester, targetElem) {
+            const y = Math.floor((numOfSemester + 1) / 2);
+            const s = 2 - numOfSemester % 2;
+            var result = "<h3>학기별 수강 학점</h3>";
+            for(let i = 1; i <= y; i++) {
+                if(i < y) {
+                    for(let j = 1; j <= 2; j++) {
+                        var input = `
+                        <p><label>${i}학년 ${j}학기
+                        <input name="myCreditsAcquired${i}_${j}" type="number" min="0" max="30" step="0.5">
+                        </label></p>`;
+                        result += input;
+                    }
+                }
+                else {
+                    for(let j = 1; j <= s; j++) {
+                        var input = `
+                        <p><label>${i}학년 ${j}학기
+                        <input name="myCreditsAcquired${i}_${j}" type="number" min="0" max="30" step="0.5">
+                        </label></p>`;
+                        result += input;
+                    }
+                }
+            }
+            targetElem.innerHTML = result;
+        }
+    </script>
+</html>
